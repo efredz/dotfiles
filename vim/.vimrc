@@ -45,8 +45,6 @@ set statusline +=%2*/%L%*               "total lines
 set statusline +=%1*%4v\ %*             "virtual column number
 set statusline+=%P
 
-colorscheme dracula
-set background=dark
 
 "colores barra
 hi StatusLine ctermbg=3 ctermfg=4
@@ -137,7 +135,6 @@ Plugin 'scrooloose/syntastic'
 Plugin 'marijnh/tern_for_vim'
 Plugin 'tpope/vim-surround'
 Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'Valloric/MatchTagAlways'
 Plugin 'majutsushi/tagbar'
 Plugin 'marcweber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
@@ -147,11 +144,10 @@ Plugin 'bling/vim-airline'
 Plugin 'klen/python-mode'
 Plugin 'Valloric/MatchTagAlways'
 Plugin 'lervag/vimtex'
-Plugin 'morhetz/gruvbox'
 Plugin 'dracula/vim'
 Plugin 'chriskempson/base16-vim'
-Plugin 'vim-syntastic/syntastic'
 Plugin 'leafgarland/typescript-vim'
+Plugin 'morhetz/gruvbox'
 
 filetype plugin indent on " required!"
 
@@ -185,3 +181,6 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
+colorscheme gruvbox
+set background=dark
