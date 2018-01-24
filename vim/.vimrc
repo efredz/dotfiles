@@ -2,7 +2,7 @@ let mapleader=','
 let maplocalleader='\'
 
 "indentacion
-set shiftwidth=4
+
 set tabstop=4
 set softtabstop=4
 set expandtab
@@ -105,6 +105,9 @@ cmap w!! w !sudo tee > /dev/null %
 nnoremap <Leader>ct :!gcc % -L/usr/lib/mysql -lmysqlclient -o %:r
 
 nnoremap <Leader>te :!latexmk --pdf trabajoTitulo.tex
+
+nnoremap <Leader>y "+y
+vnoremap <Leader>y "+y
 
 "Ocultar toolbar
 set guioptions-=T
