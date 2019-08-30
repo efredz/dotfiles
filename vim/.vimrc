@@ -125,8 +125,8 @@ set tags+=~/.vim/tags/gtk3
 "Vundle
 set nocompatible
 filetype off
-set rtp+=~/.vim/bundle/vundle
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
 Plugin 'gmarik/vundle'
 Plugin 'kien/ctrlp.vim'
@@ -151,6 +151,8 @@ Plugin 'dracula/vim'
 Plugin 'chriskempson/base16-vim'
 Plugin 'leafgarland/typescript-vim'
 Plugin 'morhetz/gruvbox'
+
+call vundle#end()
 
 filetype plugin indent on " required!"
 
