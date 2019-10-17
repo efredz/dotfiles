@@ -31,19 +31,22 @@ set wildmode=longest:full
 set wildmenu
 set autochdir
 
+"Fonts
+set guifont=Iosevka\ Medium
+
 "CTRL-P
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 
 "StatusLine
-set laststatus=2
-set statusline +=%5*%{&ff}%*            "file format
-set statusline +=%3*%y%*                "file type
-set statusline +=%4*\ %<%F%*            "full path
-set statusline +=%2*%m%*                "modified flag
-set statusline +=%1*%=%5l%*             "current line
-set statusline +=%2*/%L%*               "total lines
-set statusline +=%1*%4v\ %*             "virtual column number
-set statusline+=%P
+"set laststatus=2
+"set statusline +=%5*%{&ff}%*            "file format
+"set statusline +=%3*%y%*                "file type
+"set statusline +=%4*\ %<%F%*            "full path
+"set statusline +=%2*%m%*                "modified flag
+"set statusline +=%1*%=%5l%*             "current line
+"set statusline +=%2*/%L%*               "total lines
+"set statusline +=%1*%4v\ %*             "virtual column number
+"set statusline +=%P
 
 
 "colores barra
@@ -92,8 +95,8 @@ set so=8
 
 "Atajos de teclado
 map <F2> :!clear && python % 
+nmap <F4> :NERDTreeToggle<CR>
 map <F3> :!latexmk --pdf %
-nmap <F4> : NERDTreeToggle<CR>
 map <F6> :!firefox % &
 map <F7> :!markdown % > temp.html && firefox temp.html && rm temp.html<CR>
 nmap <F8> :TagbarToggle<CR> 
@@ -122,39 +125,34 @@ set tags+=~/.vim/tags/gtk2
 set tags+=~/.vim/tags/gtk3
 
 
-"Vundle
-set nocompatible
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+"vim-plug
+call plug#begin('~/.vim/plugged')
 
-Plugin 'gmarik/vundle'
-Plugin 'kien/ctrlp.vim'
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'jngeist/vim-multimarkdown'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/syntastic'
-Plugin 'marijnh/tern_for_vim'
-Plugin 'tpope/vim-surround'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'majutsushi/tagbar'
-Plugin 'marcweber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
-Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'hynek/vim-python-pep8-indent'
-Plugin 'bling/vim-airline'
-Plugin 'klen/python-mode'
-Plugin 'Valloric/MatchTagAlways'
-Plugin 'lervag/vimtex'
-Plugin 'dracula/vim'
-Plugin 'chriskempson/base16-vim'
-Plugin 'leafgarland/typescript-vim'
-Plugin 'morhetz/gruvbox'
+Plug 'kien/ctrlp.vim'
+Plug 'jiangmiao/auto-pairs'
+Plug 'jngeist/vim-multimarkdown'
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/syntastic'
+Plug 'marijnh/tern_for_vim'
+Plug 'tpope/vim-surround'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'majutsushi/tagbar'
+Plug 'marcweber/vim-addon-mw-utils'
+Plug 'tomtom/tlib_vim'
+Plug 'hynek/vim-python-pep8-indent'
+Plug 'bling/vim-airline'
+Plug 'klen/python-mode'
+Plug 'Valloric/MatchTagAlways'
+Plug 'lervag/vimtex'
+Plug 'dracula/vim'
+Plug 'chriskempson/base16-vim'
+Plug 'leafgarland/typescript-vim'
+Plug 'morhetz/gruvbox'
+Plug 'Yggdroot/indentLine'
 
-call vundle#end()
+call plug#end()
 
-filetype plugin indent on " required!"
 
 "UltiSnips
 let g:UltiSnipsExpandTrigger="<tab>"
@@ -179,8 +177,8 @@ let g:vimtex_view_method = 'mupdf'
 
 "Syntastic
 "set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -189,3 +187,7 @@ let g:syntastic_check_on_wq = 0
 
 colorscheme gruvbox
 set background=dark
+
+" Change directory to the current buffer when opening files.
+set autochdir
+
