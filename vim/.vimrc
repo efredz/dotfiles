@@ -76,7 +76,7 @@ augroup END
 set so=8
 
 "Atajos de teclado
-map <F2> :!clear && python % 
+map <F2> :!python % 
 nmap <F4> :NERDTreeToggle<CR>
 map <F3> :!latexmk --pdf %
 map <F6> :!firefox % &
@@ -90,8 +90,10 @@ map ; :Files<CR>
 "Atajos con Leader
 nnoremap <Leader>ct :!gcc % -L/usr/lib/mysql -lmysqlclient -o %:r
 nnoremap <Leader>te :!latexmk --pdf trabajoTitulo.tex
-nnoremap <Leader>y "+y
-vnoremap <Leader>y "+y
+vnoremap <Leader>y "*y
+vnoremap <Leader>p "*p
+vnoremap <Leader>Y "+y
+vnoremap <Leader>P "+p
 
 "Ocultar toolbar
 set guioptions-=T
@@ -115,7 +117,6 @@ Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/syntastic'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'itchyny/lightline.vim'
-Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop'  }
 Plug 'Valloric/MatchTagAlways'
 Plug 'lervag/vimtex'
 Plug 'chriskempson/base16-vim'
