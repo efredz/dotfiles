@@ -35,8 +35,8 @@ set grepprg=grep\ -nH\ $*
 let g:tex_flavor = "latex"
 set runtimepath=~/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,~/.vim/after
 
-set wildmode=longest:full
 set wildmenu
+set wildmode=longest:full,full
 set autochdir
 
 "Fonts
@@ -53,9 +53,6 @@ nnoremap <Leader>ze :set cursorline! cursorcolumn! <CR>
 
 "Cursor
 highlight Cursor guifg=white guibg=black
-
-"Arreglo incompatibilidad delimitMate y supertab
-"let g:SuperTabDefaultCompletionType = "context"
 
 no - $
 no _ ^
@@ -78,22 +75,17 @@ set so=8
 "Atajos de teclado
 map <F2> :!python % 
 nmap <F4> :NERDTreeToggle<CR>
-map <F3> :!latexmk --pdf %
-map <F6> :!firefox % &
-map <F7> :!markdown % > temp.html && firefox temp.html && rm temp.html<CR>
-nmap <F8> :TagbarToggle<CR> 
-map <F10> :wq
-nmap <F12> :syntax sync fromstart
 cmap w!! w !sudo tee > /dev/null %
-map ; :Files<CR>
 
-"Atajos con Leader
-nnoremap <Leader>ct :!gcc % -L/usr/lib/mysql -lmysqlclient -o %:r
-nnoremap <Leader>te :!latexmk --pdf trabajoTitulo.tex
-vnoremap <Leader>y "*y
-vnoremap <Leader>p "*p
-vnoremap <Leader>Y "+y
-vnoremap <Leader>P "+p
+" " Copy to clipboard
+vnoremap  <Leader>y  "+y
+nnoremap  <Leader>Y  "+yg_
+nnoremap  <Leader>y  "+y
+nnoremap  <Leader>yy  "+yy
+
+" " Paste from clipboard
+nnoremap <Leader>p "+p
+nnoremap <Leader>P "+P
 
 "Ocultar toolbar
 set guioptions-=T
@@ -103,6 +95,9 @@ set guioptions-=r
 "Sudo save
 nnoremap <Leader>es :w !sudo tee % > /dev/null
 
+"Fuzzy Finder fzf
+nnoremap <Leader>f :Files<Cr>
+
 "Tags
 set tags+=~/.vim/tags/gtk2 
 set tags+=~/.vim/tags/gtk3
@@ -111,23 +106,22 @@ set tags+=~/.vim/tags/gtk3
 "vim-plug
 call plug#begin('~/.vim/plugged')
 
-Plug 'scrooloose/nerdcommenter'
 Plug 'airblade/vim-gitgutter'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/syntastic'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'itchyny/lightline.vim'
-Plug 'Valloric/MatchTagAlways'
-Plug 'lervag/vimtex'
 Plug 'chriskempson/base16-vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'morhetz/gruvbox'
 Plug 'Yggdroot/indentLine'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rhubarb'
+Plug 'joshdick/onedark.vim'
+Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 
 call plug#end()
 
@@ -138,9 +132,8 @@ set shortmess+=A
 let g:tex_flavor = "latex"
 let g:vimtex_view_method = 'mupdf'
 
-colorscheme gruvbox
+colorscheme onedark
 set background=dark
 
-" Change directory to the current buffer when opening files.
-set autochdir
-
+autocmd Filetype markdown setlocal tabstop=2 softtabstop=2 shiftwidth=2
+autocmd Filetype yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2
