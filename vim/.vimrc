@@ -39,9 +39,6 @@ set wildmenu
 set wildmode=longest:full,full
 set autochdir
 
-"Fonts
-set guifont=Iosevka\ Medium
-
 "CTRL-P
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 
@@ -121,7 +118,7 @@ Plug 'junegunn/fzf'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-fugitive'
 Plug 'joshdick/onedark.vim'
-Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+Plug 'https://github.com/elzr/vim-json'
 
 call plug#end()
 
@@ -137,3 +134,5 @@ set background=dark
 
 autocmd Filetype markdown setlocal tabstop=2 softtabstop=2 shiftwidth=2
 autocmd Filetype yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2
+autocmd Filetype javascript setlocal tabstop=2 softtabstop=2 shiftwidth=2
+autocmd Filetype json setlocal tabstop=2 softtabstop=2 shiftwidth=2

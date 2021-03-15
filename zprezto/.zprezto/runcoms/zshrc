@@ -23,16 +23,26 @@ alias cat=bat
 alias k=kubectl
 alias watch='watch '
 alias wkhtmltopdf=/usr/bin/wkhtmltopdf
-alias glg="git log --graph --oneline"
+alias glg="git log --graph --oneline "
+alias gls="git log --pretty=format:'%C(cyan)%h %C(magenta)%<(20)%an %C(white)%ci %C(cyan)%d %n %C(yellow)%s%n' -5"
 alias vim=nvim
 alias kl='kubectl logs --tail=100 -f '
 alias km='watch kubectl get pods -n '
 alias kp='watch kubectl top pods -n '
 alias kg='kubectl get '
 alias gst='git status'
+alias gu='git checkout devel && git pull'
+alias gco='git checkout'
+alias gcb='git checkout -b'
+alias gdf='git diff'
+alias deploy='git checkout devel && git pull && git checkout master && git pull && git merge devel && git push'
 alias cl='clear'
 alias ktx='kubectx'
 alias kex='kubectl exec -it '
+alias gup=updateBranch
+alias uo=getOrder
+alias uu=getUser
+alias curl=curlie
 
 bindkey -v
 bindkey "^R" history-incremental-search-backward
@@ -41,13 +51,12 @@ export PATH=$PATH:/home/edgardo/scripts-git
 
 
 export PATH="$PATH:$HOME/.bin/custom-git-commands:$HOME/.local/bin"
+export PATH="$PATH:$HOME/dev/tools/flutter/bin"
 export PATH="$PATH:/opt/flutter/bin"
 export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
 export FZF_CTRL_R_OPTS='--sort --exact'
 export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
 
-source /usr/share/fzf/key-bindings.zsh
-source /usr/share/fzf/completion.zsh
 source $HOME/.dotfiles/environment_variables
 
 export MOZ_USE_XINPUT2=1
@@ -79,8 +88,6 @@ klg(){
     fi
 }
 
-
-eval "$(rbenv init -)"
 
 function jwt-decode() {
   sed 's/\./\n/g' <<< $(cut -d. -f1,2 <<< $1) | base64 --decode | jq
@@ -139,7 +146,51 @@ function eksCoward() {
   fi
 }
 
+function updateBranch() {
+  git fetch origin devel:devel
+  git rebase devel
+}
+
 function endcheck() {
         kubectl get endpoints $1 -n $2 -o=jsonpath='{.subsets[*].addresses[*].ip}' | tr ' ' '\n' | xargs -I % kubectl get pods --field-selector=status.podIP=% -n $2
 }
 
+function getOrder() {
+  if [[ $2 ]] ; then
+    TOKEN=$2
+  elif [[ ${UBER_TOKEN} ]] ; then
+    TOKEN=${UBER_TOKEN}
+  else
+    echo "You must pass Uber Token or set the environment variable UBER_TOKEN"
+    return
+  fi
+  curlie -X GET https://api.uber.com/v1/eats/cornershop/orders/$1\?tenancy\=uber/production -H "Authorization: Bearer ${TOKEN}"
+
+}
+
+function getUser() {
+  if [[ -z $1 ]] ; then
+    echo "You first argument must uber order uuid"
+    return
+  fi
+  if [[ $2 ]] ; then
+    TOKEN=$2
+  elif [[ "${UBER_TOKEN}" ]] ; then
+    TOKEN=${UBER_TOKEN}
+  else
+    echo "You must pass Uber Token or set the environment variable UBER_TOKEN"
+    return
+  fi
+  curlie -X GET https://api.uber.com/v1/eats/cornershop/users/$1/profile\?tenancy\=uber/production -H "Authorization: Bearer ${TOKEN}"
+}
+
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+
+
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
